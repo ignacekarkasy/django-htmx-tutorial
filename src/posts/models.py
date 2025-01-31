@@ -3,6 +3,8 @@ import uuid
 
 class Post(models.Model):
     title = models.CharField(max_length=500)
+    artist = models.CharField(max_length=500, null=True) # nullable temporary
+    url = models.CharField(max_length=500, null=True) # nullable temporary
     image = models.URLField(max_length=500)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
