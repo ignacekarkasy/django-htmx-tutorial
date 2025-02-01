@@ -1,10 +1,8 @@
-from django import forms
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple, Textarea, TextInput
 from django.forms.models import ModelForm
 from .models import Post
 
 from allauth.account.forms import SignupForm
-from django import forms
 
 class CustomSignupForm(SignupForm):
     # fix to remove default password helptext from signup form
@@ -21,8 +19,8 @@ class PostCreateForm(ModelForm):
         fields = ['url', 'body', 'tags']
         labels = {'url': 'URL', 'body': 'Caption', 'tags': 'Category'}
         widgets = {
-            'body': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add a Caption...', 'class': 'font1 text-4xl'}),
-            'url': forms.TextInput(attrs={'placeholder': 'Add a URL...'}),
+            'body': Textarea(attrs={'rows': 3, 'placeholder': 'Add a Caption...', 'class': 'font1 text-4xl'}),
+            'url': TextInput(attrs={'placeholder': 'Add a URL...'}),
             'tags': CheckboxSelectMultiple(),
         }
 class PostEditForm(ModelForm):
@@ -31,6 +29,6 @@ class PostEditForm(ModelForm):
         fields = ['body', 'tags']
         labels = {'body': '', 'tags': 'Category'}
         widgets = {
-            'body': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add a Caption...', 'class': 'font1 text-4xl'}),
+            'body': Textarea(attrs={'rows': 3, 'placeholder': 'Add a Caption...', 'class': 'font1 text-4xl'}),
             'tags': CheckboxSelectMultiple(),
         }

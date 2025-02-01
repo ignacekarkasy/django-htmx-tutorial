@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'debug_toolbar',
     'django_htmx',
+    'django_cleanup.apps.CleanupConfig',
     'posts',
     'users',
 ]
