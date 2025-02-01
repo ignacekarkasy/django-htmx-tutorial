@@ -151,3 +151,7 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_FORMS = {
     'signup': 'posts.forms.CustomSignupForm',  # replace default signup form on signup, to remove password hints help.
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
