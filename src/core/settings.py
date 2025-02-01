@@ -147,3 +147,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_FORMS = {
+    'signup': 'posts.forms.CustomSignupForm',  # replace default signup form on signup, to remove password hints help.
+}
