@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_htmx',
     'posts',
+    'users',
 ]
 
 SITE_ID = 1
