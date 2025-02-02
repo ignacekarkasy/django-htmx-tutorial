@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from posts.views import home_view, post_create_view, post_delete_view, post_edit_view, post_page_view
+from posts.views import home_view, post_create_view, post_delete_view, post_edit_view, post_page_view, comment_sent
 from users.views import profile_view, profile_edit_view, profile_delete_view
 
 urlpatterns = [
@@ -36,6 +36,7 @@ urlpatterns = [
     path('profile/edit/', profile_edit_view, name='profile-edit'),
     path('profile/delete/', profile_delete_view, name='profile-delete'),
     path('profile/onboarding/', profile_edit_view, name='profile-onboarding'),
+    path('commentsent/<pk>', comment_sent, name='comment-sent'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

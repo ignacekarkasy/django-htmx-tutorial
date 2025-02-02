@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PostCreateForm, PostEditForm
+from .forms import PostCreateForm, PostEditForm, CommentCreateForm
 from .models import Post, Tag
 
 
@@ -72,4 +72,17 @@ def post_edit_view(request, pk):
 
 def post_page_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'posts/post_page.html', {'post': post})
+    form = CommentCreateForm()
+    return render(request, 'posts/post_page.html', {'post': post, 'form': form})
+
+@login_required
+def comment_sent(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.parent_post = post
+            comment.save()
+    return redirect('post-page', pk=pk)

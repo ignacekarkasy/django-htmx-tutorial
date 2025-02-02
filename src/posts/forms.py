@@ -1,8 +1,9 @@
+from allauth.account.forms import SignupForm
 from django.forms import CheckboxSelectMultiple, Textarea, TextInput
 from django.forms.models import ModelForm
-from .models import Post
 
-from allauth.account.forms import SignupForm
+from .models import Post, Comment
+
 
 class CustomSignupForm(SignupForm):
     def __init__(self, *args, **kwargs):
@@ -23,6 +24,7 @@ class PostCreateForm(ModelForm):
             'tags': CheckboxSelectMultiple(),
         }
 
+
 class PostEditForm(ModelForm):
     class Meta:
         model = Post
@@ -31,4 +33,17 @@ class PostEditForm(ModelForm):
         widgets = {
             'body': Textarea(attrs={'rows': 3, 'placeholder': 'Add a Caption...', 'class': 'font1 text-4xl'}),
             'tags': CheckboxSelectMultiple(),
+        }
+
+
+class CommentCreateForm(ModelForm):
+    class Meta:
+        model = Comment
+
+        fields = ['body']
+        widgets = {
+            'body': TextInput(attrs={'placeholder': 'Add comment ...'})
+        }
+        labels = {
+            'body': ''
         }
