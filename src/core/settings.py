@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
-from django.conf.global_settings import STATICFILES_DIRS
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -148,8 +146,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'
-
 ACCOUNT_FORMS = {
     'signup': 'posts.forms.CustomSignupForm',  # replace default signup form on signup, to remove password hints help.
 }
@@ -158,3 +154,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_BLACKLIST = ['admin', 'user', 'accounts', 'profile', 'category', 'posts']
+ACCOUNT_ADAPTER = 'users.adapters.AccountAdapter'
+SIGNUP_REDIRECT_URL = "profile-onboarding"
+LOGIN_REDIRECT_URL = "home"

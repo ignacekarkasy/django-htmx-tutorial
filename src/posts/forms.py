@@ -5,7 +5,6 @@ from .models import Post
 from allauth.account.forms import SignupForm
 
 class CustomSignupForm(SignupForm):
-    # fix to remove default password helptext from signup form
     def __init__(self, *args, **kwargs):
         self.by_passkey = kwargs.pop("by_passkey", False)
         super().__init__(*args, **kwargs)
