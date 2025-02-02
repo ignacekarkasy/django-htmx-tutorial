@@ -35,6 +35,8 @@ def post_create_view(request, *args, **kwargs):
             find_artist = soup.select('a.owner-name')
             post.artist = find_artist[0].text.strip()
 
+            post.author = request.user
+
             post.save()
             form.save_m2m()
             return redirect('home')

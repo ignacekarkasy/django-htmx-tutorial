@@ -23,6 +23,7 @@ class PostCreateForm(ModelForm):
             'url': TextInput(attrs={'placeholder': 'Add a URL...'}),
             'tags': CheckboxSelectMultiple(),
         }
+
 class PostEditForm(ModelForm):
     class Meta:
         model = Post

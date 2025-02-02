@@ -13,7 +13,7 @@
             {{ form }}
             <div class="pt-4">
                 <button type="submit">Submit</button>
-                <a class="button secondaryAction ml-1" href="">Go Back</a>
+                <a class="button secondaryAction ml-1" href="{{ request.META.HTTP_REFERER }}">Go Back</a>
             </div>
         </form>
     </div>

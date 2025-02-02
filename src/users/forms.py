@@ -1,4 +1,4 @@
-from django.forms import CheckboxSelectMultiple, Textarea, TextInput, FileInput
+from django.forms import Textarea, FileInput
 from django.forms.models import ModelForm
 from .models import Profile
 
