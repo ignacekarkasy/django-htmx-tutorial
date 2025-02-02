@@ -136,7 +136,27 @@ class CustomSignupForm(SignupForm):
 
 ```
 [rel](https://youtu.be/gamULNTZsMM?list=PL5E1F5cTSTtTAIw_lBp1hE8nAKfCXgUpW&t=768)
+### AllAuth redirect urls not working
+First i needed to adapt to AllAuths changes since the recording of the tutorial. 
+The access to the redirect property has changed, which i managed to access via AllAuth's adapters.
 
+I needed to overwrite AllAuths adapter `ACCOUNT_ADAPTER` and created a extension in `users/adapters.py`.
+Here i extend from `from allauth.account.adapter import DefaultAccountAdapter` whose 2 redirect methods are overloaded.
+- `get_login_redirect_url()`
+- `get_signup_redirect_url()`
+
+There is basically no change, but without this adapter the settings `SIGNUP_REDIRECT_URL` and `LOGIN_REDIRECT_URL`
+dont seem to work.
+
+[rel](https://youtu.be/GBOmZRfBR-g?list=PL5E1F5cTSTtTAIw_lBp1hE8nAKfCXgUpW&t=889)
+### Django forms render produced extra wrapper div
+Without styling the div maintains the width of the child.
+adding a tailwind class with `w-full` just to the input would have no effect since as a child is already using 100%.
+I found no quick/easy way to configure the formclass to add a class to its wrapper.
+As a workaround i iterate over the fields and print them individually.
+This way no form wrapper div is applied.
+
+[rel](https://youtu.be/T5Jfb_LkoV0?list=PL5E1F5cTSTtTAIw_lBp1hE8nAKfCXgUpW&t=665)
 ## Tutorial feedback
 - in all class `__str__` casts, a `str()` cast is not necessary, because the objets/fields are known.
 - shows something that is out of order [1](https://www.youtube.com/watch?v=8eD7NyMZdg8&lc=UgxdwJ4u0-KA3Q83OhZ4AaABAg)

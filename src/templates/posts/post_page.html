@@ -5,7 +5,9 @@
     <div class="card !pb-0 -mt-3">
         <form method="POST" action="{% url 'comment-sent' post.id %}" class="flex items-center p-4" autocomplete="off">
             {% csrf_token %}
-            {{ form }}
+            {% for field in form %}
+            {{ field }}
+            {% endfor %}
             <button @click="open = false" class="block ml-2" type="submit">Submit</button>
         </form>
     </div>
