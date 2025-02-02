@@ -11,7 +11,7 @@
             <button @click="open = false" class="block ml-2" type="submit">Submit</button>
         </form>
     </div>
-
+    {% if post.comments.count %}
     <div class="mb-20">
         <div id="tabs" class="ml-4 flex gap-1 mb-4">
             <a class="tab selected">Newest First</a>
@@ -24,4 +24,5 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 {% endblock %}

@@ -46,3 +46,6 @@ class Comment(models.Model):
     def __str__(self):
         author = self.author.username if self.author else 'no author'
         return f'{author}: {self.body[:30]}'
+
+    class Meta:
+        ordering = ['-created_at']
