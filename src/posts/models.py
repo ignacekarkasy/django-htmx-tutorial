@@ -1,11 +1,13 @@
-from django.db import models
-from django.contrib.auth.models import User
 import uuid
+
+from django.contrib.auth.models import User
+from django.db import models
+
 
 class Post(models.Model):
     title = models.CharField(max_length=500)
-    artist = models.CharField(max_length=500, null=True) # nullable temporary
-    url = models.CharField(max_length=500, null=True) # nullable temporary
+    artist = models.CharField(max_length=500, null=True)  # nullable temporary
+    url = models.CharField(max_length=500, null=True)  # nullable temporary
     image = models.URLField(max_length=500)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='posts')
     body = models.TextField()
@@ -20,6 +22,7 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(max_length=20, unique=True)
@@ -31,3 +34,15 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['order']
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='comments')
+    parent_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    body = models.CharField(max_length=150)
+    created_at = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(max_length=100, default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
+    def __str__(self):
+        author = self.author.username if self.author else 'no author'
+        return f'{author}: {self.body[:30]}'
