@@ -51,17 +51,17 @@
     </div>
 
     <div id="tab-contents">
-
+        {% for comment in post.comments.all %}
         <comment class="card p-4 !mb-4">
             <div class="flex justify-between items-center"> 
-                <a class="flex items-center gap-1 mb-2" href="">
-                    <img class="w-8 h-8 object-cover rounded-full" src="https://img.icons8.com/small/96/A9A9A9/happy.png"> 
-                    <span class="font-bold hover:underline">Bart</span>
-                    <span class="text-sm font-normal text-gray-400">@bartsimpson</span>
+                <a class="flex items-center gap-1 mb-2" href="{% url 'userprofile' comment.author.username %}">
+                    <img class="w-8 h-8 object-cover rounded-full" src="{{ comment.author.profile.avatar }}">
+                    <span class="font-bold hover:underline">{{ comment.author.profile.name }}</span>
+                    <span class="text-sm font-normal text-gray-400">@{{ comment.author.username }}</span>
                 </a>
             </div>
             <p class="text-xl px-2">
-                This is a comment from Bart
+                {{ comment.body }}
             </p>
             <div x-data="{ repliesOpen: false }" class="flex items-center justify-between flex-wrap text-sm px-2">
                 <a @click="repliesOpen = !repliesOpen" class="font-bold hover:underline cursor-pointer">
@@ -114,7 +114,7 @@
                 </div>
             </div> 
         </comment>
-
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
