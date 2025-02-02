@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProfileEditForm
@@ -17,6 +18,7 @@ def profile_view(request, username=None):
     return render(request, 'users/profile.html', {'profile': profile})
 
 
+@login_required
 def profile_edit_view(request):
     form = ProfileEditForm(instance=request.user.profile)
     if request.method == 'POST':
@@ -27,6 +29,7 @@ def profile_edit_view(request):
 
     return render(request, 'users/profile_edit.html', {'form': form})
 
+@login_required
 def profile_delete_view(request):
     user = request.user
     if request.method == 'POST':

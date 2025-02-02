@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import PostCreateForm, PostEditForm
@@ -17,6 +18,8 @@ def home_view(request, tag=None, *args, **kwargs):
     categories = Tag.objects.all()
     return render(request, 'posts/home.html', {'posts': posts, 'categories': categories, 'tag': tag})
 
+
+@login_required
 def post_create_view(request, *args, **kwargs):
     form = PostCreateForm()
     if request.method == 'POST':
@@ -43,8 +46,9 @@ def post_create_view(request, *args, **kwargs):
     return render(request, 'posts/post_create.html', {'form': form})
 
 
+@login_required
 def post_delete_view(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, author=request.user)
     if request.method == 'POST':
         post.delete()
         messages.success(request, 'Post Deleted Successfully')
@@ -52,8 +56,9 @@ def post_delete_view(request, pk):
     return render(request, 'posts/post_delete.html', {'post': post})
 
 
+@login_required
 def post_edit_view(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, author=request.user)
     form = PostEditForm(instance=post)
     if request.method == 'POST':
         form = PostEditForm(request.POST, instance=post)
@@ -63,6 +68,7 @@ def post_edit_view(request, pk):
             return redirect('home')
     context = {'form': form, 'post': post}
     return render(request, 'posts/post_edit.html', context)
+
 
 def post_page_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
