@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from posts.views import home_view, post_create_view, post_delete_view, post_edit_view, post_page_view, comment_sent, \
-    comment_delete_view, reply_sent, reply_delete_view
+    comment_delete_view, reply_sent, reply_delete_view, like_post
 from users.views import profile_view, profile_edit_view, profile_delete_view
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     path('post/delete/<pk>/', post_delete_view, name='post-delete'),
     path('post/edit/<pk>/', post_edit_view, name='post-edit'),
     path('post/view/<pk>/', post_page_view, name='post-page'),
+    path('post/view/<pk>/like', like_post, name='like-post'),
     path('profile/', profile_view, name='profile'),
     path('<username>/', profile_view, name='userprofile'),
     path('profile/edit/', profile_edit_view, name='profile-edit'),

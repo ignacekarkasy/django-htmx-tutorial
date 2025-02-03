@@ -80,7 +80,7 @@ def post_page_view(request, pk):
 
 @login_required
 def comment_sent(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, id=pk)
     if request.method == 'POST':
         form = CommentCreateForm(request.POST)
         if form.is_valid():
@@ -92,7 +92,7 @@ def comment_sent(request, pk):
 
 @login_required
 def reply_sent(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+    comment = get_object_or_404(Comment, id=pk)
     if request.method == 'POST':
         form = ReplyCreateForm(request.POST)
         if form.is_valid():
@@ -105,7 +105,7 @@ def reply_sent(request, pk):
 
 @login_required
 def comment_delete_view(request, pk):
-    comment = get_object_or_404(Comment, pk=pk, author=request.user)
+    comment = get_object_or_404(Comment, id=pk, author=request.user)
     if request.method == 'POST':
         comment.delete()
         messages.success(request, 'Comment Deleted Successfully')
@@ -114,9 +114,15 @@ def comment_delete_view(request, pk):
 
 @login_required
 def reply_delete_view(request, pk):
-    reply = get_object_or_404(Reply, pk=pk, author=request.user)
+    reply = get_object_or_404(Reply, id=pk, author=request.user)
     if request.method == 'POST':
         reply.delete()
         messages.success(request, 'Reply Deleted Successfully')
         return redirect('post-page', pk=reply.parent_comment.parent_post.id)
     return render(request, 'posts/reply_delete.html', {'reply': reply})
+
+def like_post(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if post.author != request.user:
+        post.likes.add(request.user)
+    return redirect('post-page', pk=post.id)
