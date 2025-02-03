@@ -2,7 +2,7 @@ from allauth.account.forms import SignupForm
 from django.forms import CheckboxSelectMultiple, Textarea, TextInput
 from django.forms.models import ModelForm
 
-from .models import Post, Comment
+from .models import Post, Comment, Reply
 
 
 class CustomSignupForm(SignupForm):
@@ -43,6 +43,18 @@ class CommentCreateForm(ModelForm):
         fields = ['body']
         widgets = {
             'body': TextInput(attrs={'placeholder': 'Add comment ...'})
+        }
+        labels = {
+            'body': ''
+        }
+
+class ReplyCreateForm(ModelForm):
+    class Meta:
+        model = Reply
+
+        fields = ['body']
+        widgets = {
+            'body': TextInput(attrs={'placeholder': 'Add reply ...', 'class': '!text-sm'})
         }
         labels = {
             'body': ''
