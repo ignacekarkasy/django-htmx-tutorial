@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import PostCreateForm, PostEditForm, CommentCreateForm, ReplyCreateForm
@@ -130,4 +131,4 @@ def like_post(request, pk):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
-    return redirect('post-page', pk=post.id)
+    return render(request, 'snippets/likes.html', {'post': post})
