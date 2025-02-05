@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from posts.views import home_view, post_create_view, post_delete_view, post_edit_view, post_page_view, comment_sent, \
-    comment_delete_view, reply_sent, reply_delete_view, like_post
+    comment_delete_view, reply_sent, reply_delete_view, like_post, like_comment, like_reply
 from users.views import profile_view, profile_edit_view, profile_delete_view
 
 urlpatterns = [
@@ -31,8 +31,8 @@ urlpatterns = [
     path('post/create/', post_create_view, name='post-create'),
     path('post/delete/<pk>/', post_delete_view, name='post-delete'),
     path('post/edit/<pk>/', post_edit_view, name='post-edit'),
-    path('post/view/<pk>/', post_page_view, name='post-page'),
-    path('post/view/<pk>/like', like_post, name='like-post'),
+    path('post/<pk>/', post_page_view, name='post-page'),
+    path('post/like/<pk>/', like_post, name='like-post'),
     path('profile/', profile_view, name='profile'),
     path('<username>/', profile_view, name='userprofile'),
     path('profile/edit/', profile_edit_view, name='profile-edit'),
@@ -40,6 +40,8 @@ urlpatterns = [
     path('profile/onboarding/', profile_edit_view, name='profile-onboarding'),
     path('commentsent/<pk>/', comment_sent, name='comment-sent'),
     path('comment/delete/<pk>/', comment_delete_view, name='comment-delete'),
+    path('comment/like/<pk>', like_comment, name='like-comment'),
+    path('reply/like/<pk>', like_reply, name='like-reply'),
     path('replysent/<pk>/', reply_sent, name='reply-sent'),
     path('reply/delete/<pk>/', reply_delete_view, name='reply-delete'),
 ]
